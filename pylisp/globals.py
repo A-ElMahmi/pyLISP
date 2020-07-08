@@ -1,14 +1,33 @@
-from evaluate import Evaluate
+import evaluate
 
 builtIn = {
   "operators": {
-    "+": Evaluate().add,
-    "-": Evaluate().subtract,
-    "*": Evaluate().multiply,
-    "/": Evaluate().divide
+    "+": evaluate.operation, 
+    "-": evaluate.operation, 
+    "*": evaluate.operation, 
+    "/": evaluate.operation, 
   },
+
+  "comparasions": {
+    "=": evaluate.compare,
+    "<": evaluate.compare,
+    ">": evaluate.compare,
+  },
+  
+  "logic comparasions": {
+    "not": evaluate.logicCompare,
+    "and": evaluate.logicCompare,
+    "or": evaluate.logicCompare,
+  },
+  
   "define": {
-    "variable": Evaluate().makeVariable,
-    "function": Evaluate().makeFunction
-  }
+    "variable": evaluate.makeVariable,
+    "function": evaluate.makeFunction
+  },
+
+  "cond": evaluate.condition
 }
+
+variables = {}
+
+functions = {}

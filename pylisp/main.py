@@ -24,9 +24,12 @@ def splitCodeBlocks(fileData):
 
   return codeBlocks
 
+def main():
+  with open(FILENAME) as f:
+    codeBlocks = splitCodeBlocks(f.read().strip())
 
-with open(FILENAME) as f:
-  codeBlocks = splitCodeBlocks(f.read().strip())
+  for block in codeBlocks:
+    Tokenize(block)
 
-for block in codeBlocks:
-  Tokenize(block)
+if __name__ == "__main__":
+  main()
