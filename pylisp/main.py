@@ -1,3 +1,5 @@
+import sys
+import colorama
 from tokenizer import Tokenize
 
 FILENAME = "../test.txt"
@@ -31,5 +33,13 @@ def main():
   for block in codeBlocks:
     Tokenize(block)
 
+
 if __name__ == "__main__":
-  main()
+  try:
+    main()
+  except Exception:
+    colorama.init()
+    errorMsg = "{}{}: {}".format(colorama.Fore.RED, 
+                                  sys.exc_info()[0].__name__, 
+                                  sys.exc_info()[1])
+    print(errorMsg)

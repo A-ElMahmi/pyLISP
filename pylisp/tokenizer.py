@@ -71,23 +71,9 @@ class Tokenize:
       
       for i, j in zip(parameters, arguments):
         body = self.splitFuncArgs(body, i, j)
+
       return self.assignToken(self.split(body))
       
-      
-      # paramArgs = dict(zip(parameters, arguments))
-      # body = []
-
-      # for i in self.split(globals.functions[keyword][1]):
-      #   while i[0] == "(" and i[-1] == ")":
-      #     i = self.split(i)
-      #     # Call splitFuncArgs for every argument
-      #     # ------------------
-      #     # Need to fix recursion with functions
-      #     # ------------------
-      #   body.append(i if i not in paramArgs else paramArgs[i])
-
-      # return self.assignToken(body)
-
     elif keyword == "cond":
       predicates, expressions, elseClause = [], [], None
       for e in expression[1:]:
@@ -175,24 +161,28 @@ class Tokenize:
 
     return cleanSplit
 
+
   def splitFuncArgs(self, body, old, new):
     start, end = [], []
     for e in re.finditer(rf"\b{old}\b", body):
       start.append(e.start())
       end.append(e.end())
 
+    if len(start) == 0:
+      return body
+
     newBody = ""
     for i in range(len(start)):
       if i == 0 and i == len(start)-1:
-        newBody += body[:start[i]] + new + body[end[i]:]
+        newBody += body[:start[i]] + str(new) + body[end[i]:]
         continue
       elif i == 0:
-        newBody += body[:start[i]] + new + body[end[i] : start[i+1]]
+        newBody += body[:start[i]] + str(new) + body[end[i] : start[i+1]]
         continue
       elif i == len(start)-1:
-        newBody += new + body[end[i]:]
+        newBody += str(new) + body[end[i]:]
         continue
 
-      newBody += new + body[end[i] : start[i+1]]
+      newBody += str(new) + body[end[i] : start[i+1]]
 
     return newBody

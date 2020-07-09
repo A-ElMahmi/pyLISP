@@ -11,14 +11,14 @@ def convertToNum(string):
 def operation(operator, *operands):
   operands = [convertToNum(i) for i in operands]
   if len(operands) < 1: 
-    raise Exception(f"Too little operands: + {operands}")
+    raise ValueError(f"Too little operands --> + {operands}")
   
   if operator == "+":
     return sum(operands)
   
   elif operator == "-":
     if len(operands) > 2: 
-      raise Exception(f"Too many operands: - {operands}")
+      raise ValueError(f"Too many operands --> - {operands}")
 
     val1 = operands[0]
     val2 = operands[1] if len(operands) == 2 else 0
@@ -26,13 +26,13 @@ def operation(operator, *operands):
   
   elif operator == "*":
     if len(operands) < 2:
-      raise Exception(f"Too little operands: * {operands}")
+      raise ValueError(f"Too little operands --> * {operands}")
 
     return functools.reduce(lambda a, b: a * b, operands)
 
   elif operator == "/":
     if len(operands) != 2:
-      raise Exception(f"Too many or too little operands: / {operands}")
+      raise ValueError(f"Too many or too little operands --> / {operands}")
 
     return operands[0] / operands[1]
 
